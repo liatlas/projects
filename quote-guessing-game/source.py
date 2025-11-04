@@ -72,10 +72,4 @@ while guess.lower() != quote["author"].lower() and remaining_guesses > 0:
 
     
 
-def main():
-    all_quotes = []
-    base_url = 'https://quotes.toscrape.com/'
-    url = '/page/1'
 
-if __name__ == "__main__":
-    main()
