@@ -1,0 +1,476 @@
+:root {
+  --felt-color: #056953;
+  --table-border: #472d1a;
+  --bg-color: #111;
+  --chip-red: #d62828;
+  --chip-blue: #1d4ed8;
+  --chip-green: #15803d;
+  --card-w: 100px;
+  --card-h: 140px;
+  --font-color: #fff;
+}
+
+/* Theme Palettes */
+body:has(#theme-classic:checked) {
+  --felt-color: #056953;
+  --table-border: #472d1a;
+  --bg-color: #111;
+}
+
+body:has(#theme-royal:checked) {
+  --felt-color: #1e3a8a;
+  --table-border: #7c2d12;
+  --bg-color: #0f172a;
+}
+
+body:has(#theme-sunset:checked) {
+  --felt-color: #7c2d12;
+  --table-border: #451a03;
+  --bg-color: #1c1917;
+}
+
+body:has(#theme-midnight:checked) {
+  --felt-color: #1a1a2e;
+  --table-border: #0f0f1e;
+  --bg-color: #000000;
+}
+
+body:has(#theme-ocean:checked) {
+  --felt-color: #0e7490;
+  --table-border: #164e63;
+  --bg-color: #082f49;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg-color);
+  font-family: system-ui, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  color: var(--font-color);
+  transition: background 0.3s ease;
+}
+
+/* Theme Selector */
+.theme-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 100;
+  cursor: pointer;
+  font-size: 1.8rem;
+  background: rgba(0,0,0,0.6);
+  padding: 0.5rem;
+  border-radius: 8px;
+  user-select: none;
+}
+
+.theme-panel {
+  position: fixed;
+  top: 1rem;
+  right: -300px;
+  width: 280px;
+  background: rgba(20, 20, 20, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  transition: right 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  z-index: 99;
+}
+
+#theme-selector:checked ~ .theme-panel {
+  right: 1rem;
+}
+
+.theme-panel h3 {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  text-align: center;
+  color: #fff;
+}
+
+.theme-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.theme-option {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: rgba(255,255,255,0.05);
+}
+
+.theme-option:hover {
+  background: rgba(255,255,255,0.1);
+  transform: translateX(5px);
+}
+
+.theme-color {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  border: 2px solid rgba(255,255,255,0.2);
+}
+
+.theme-option input[type="radio"]:checked + .theme-color {
+  border-color: #fff;
+  box-shadow: 0 0 10px rgba(255,255,255,0.5);
+}
+
+.theme-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+}
+
+.theme-label {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+/* Color previews */
+.color-classic { background: linear-gradient(135deg, #056953 0%, #472d1a 100%); }
+.color-royal { background: linear-gradient(135deg, #1e3a8a 0%, #7c2d12 100%); }
+.color-sunset { background: linear-gradient(135deg, #7c2d12 0%, #451a03 100%); }
+.color-midnight { background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1e 100%); }
+.color-ocean { background: linear-gradient(135deg, #0e7490 0%, #164e63 100%); }
+
+.table {
+  position: relative;
+  width: 95%;
+  max-width: 860px;
+  aspect-ratio: 16/15;
+  background: var(--felt-color);
+  border: 14px solid var(--table-border);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+/* Cards */
+.card {
+  width: var(--card-w);
+  height: var(--card-h);
+  border-radius: 8px;
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
+  opacity: 1;
+}
+
+.card.back {
+  background-image: url('cards/back.png');
+  background-size: cover;
+}
+
+/* Draw Deck (left side, permanent) */
+.draw-deck {
+  position: absolute;
+  top: 40%;
+  left: 12%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+}
+
+.draw-deck .card {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* Animate deck cards being removed */
+.deck-card-1 {
+  animation: remove-card-1 0.3s ease-out 1.75s forwards;
+}
+
+.deck-card-2 {
+  animation: remove-card-2 0.3s ease-out 2.25s forwards;
+}
+
+.deck-card-3 {
+  animation: remove-card-3 0.3s ease-out 2.75s forwards;
+}
+
+.deck-card-4 {
+  animation: remove-card-4 0.3s ease-out 3.25s forwards;
+}
+
+@keyframes remove-card-1 {
+  to { opacity: 0; }
+}
+
+@keyframes remove-card-2 {
+  to { opacity: 0; }
+}
+
+@keyframes remove-card-3 {
+  to { opacity: 0; }
+}
+
+@keyframes remove-card-4 {
+  to { opacity: 0; }
+}
+
+/* Draw Animation - cards leaving the deck */
+.draw-animation {
+  z-index: 8;
+  left: 12%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  animation: card-draw 0.5s ease-out forwards;
+}
+
+@keyframes card-draw {
+  0% {
+    opacity: 1;
+    left: 12%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    left: 30%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(5deg);
+  }
+}
+
+/* Burn Deck */
+.burn-deck {
+  position: absolute;
+  top: 40%;
+  left: 12%;
+  transform: translate(-50%, calc(-50% - 160px));
+  z-index: 5;
+}
+
+.burn-deck .card {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* Shuffle Deck (for shuffle animation) */
+.deck {
+  top: 50%;
+  left: 12%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+.deck.shuffle .card {
+  animation: shuffle 1.5s ease-in-out forwards;
+}
+
+.deck.shuffle {
+  animation: fade-deck 1.5s forwards;
+}
+
+@keyframes fade-deck {
+  0%, 90% { opacity: 1; }
+  100% { opacity: 0; pointer-events: none; }
+}
+
+@keyframes shuffle {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(15deg) translateX(20px); }
+  100% { transform: rotate(0deg); }
+}
+
+/* Burn Card */
+.burn-card {
+  z-index: 9;
+  left: 12%;
+  top: 50%;
+  opacity: 0;
+  animation: burn 1s ease-out 0.8s forwards;
+}
+
+@keyframes burn {
+  0% { 
+    opacity: 1; 
+    left: 12%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(0); 
+  }
+  50% {
+    opacity: 1;
+    left: 12%;
+    top: calc(50% - 100px);
+    transform: translate(-50%, -50%) rotate(-10deg);
+  }
+  100% { 
+    opacity: 1;
+    left: 12%;
+    top: calc(50% - 160px);
+    transform: translate(-50%, -50%) rotate(-10deg); 
+  }
+}
+
+/* Deal */
+.card.deal {
+  opacity: 0;
+  animation: deal 0.8s forwards;
+}
+
+@keyframes deal {
+  0% {
+    left: 12%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+  }
+  1% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--tx), 0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Hands */
+.dealer-hand, .player-hand {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 1vw;
+}
+
+.dealer-hand { top: 10%; }
+.player-hand { bottom: 40%; }
+
+.player-hand .card:hover {
+  transform: translateY(-10%) rotate(-3deg);
+  transition: 0.3s ease;
+  z-index: 20;
+}
+
+/* Chips */
+.chips {
+  position: absolute;
+  bottom: 5%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  z-index: 1;
+}
+
+.chip {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+.chip:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+}
+
+.chip.red { background: var(--chip-red); }
+.chip.blue { background: var(--chip-blue); }
+.chip.green { background: var(--chip-green); }
+
+/* Mobile Scaling */
+@media (max-width: 600px) {
+  :root {
+    --card-w: 20vw;
+    --card-h: 30vw;
+  }
+  
+  .chip {
+    width: 50px;
+    height: 50px;
+    font-size: 0.75rem;
+  }
+  
+  .theme-panel {
+    width: 90%;
+    right: -100%;
+  }
+  
+  #theme-selector:checked ~ .theme-panel {
+    right: 5%;
+  }
+  
+  .draw-deck {
+    left: 15%;
+  }
+  
+  .deck {
+    left: 15%;
+  }
+  
+  .burn-deck {
+    left: 15%;
+  }
+  
+  .burn-card {
+    left: 15%;
+  }
+  
+  .card.deal {
+    animation: deal-mobile 0.8s forwards;
+  }
+  
+  @keyframes deal-mobile {
+    0% {
+      left: 15%;
+      top: 50%;
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 0;
+    }
+    1% {
+      opacity: 1;
+    }
+    100% {
+      transform: translate(var(--tx), 0) scale(1);
+      opacity: 1;
+    }
+  }
+  
+  .draw-animation {
+    left: 15%;
+  }
+  
+  @keyframes card-draw {
+    0% {
+      opacity: 1;
+      left: 15%;
+      top: 50%;
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    100% {
+      opacity: 0;
+      left: 35%;
+      top: 50%;
+      transform: translate(-50%, -50%) rotate(5deg);
+    }
+  }
+}

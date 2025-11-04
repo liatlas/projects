@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Responsive Blackjack Table</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Theme Selector -->
+  <input type="checkbox" id="theme-selector" hidden />
+  <label for="theme-selector" class="theme-toggle">🎨</label>
+  
+  <div class="theme-panel">
+    <h3>Choose Theme</h3>
+    <div class="theme-options">
+      <label class="theme-option">
+        <input type="radio" name="theme" id="theme-classic" checked />
+        <div class="theme-color color-classic"></div>
+        <span class="theme-label">Classic Green</span>
+      </label>
+      
+      <label class="theme-option">
+        <input type="radio" name="theme" id="theme-royal" />
+        <div class="theme-color color-royal"></div>
+        <span class="theme-label">Royal Blue</span>
+      </label>
+      
+      <label class="theme-option">
+        <input type="radio" name="theme" id="theme-sunset" />
+        <div class="theme-color color-sunset"></div>
+        <span class="theme-label">Sunset Red</span>
+      </label>
+      
+      <label class="theme-option">
+        <input type="radio" name="theme" id="theme-midnight" />
+        <div class="theme-color color-midnight"></div>
+        <span class="theme-label">Midnight Black</span>
+      </label>
+      
+      <label class="theme-option">
+        <input type="radio" name="theme" id="theme-ocean" />
+        <div class="theme-color color-ocean"></div>
+        <span class="theme-label">Ocean Blue</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="table">
+    <!-- Draw Deck (left side) -->
+    <div class="draw-deck">
+      <div class="card back deck-card-5" style="transform: translate(-4px, -4px);"></div>
+      <div class="card back deck-card-4" style="transform: translate(-3px, -3px);"></div>
+      <div class="card back deck-card-3" style="transform: translate(-2px, -2px);"></div>
+      <div class="card back deck-card-2" style="transform: translate(-1px, -1px);"></div>
+      <div class="card back deck-card-1"></div>
+    </div>
+
+    <!-- Burn Deck -->
+    <div class="burn-deck">
+      <div class="card back" style="transform: translate(-1px, -1px);"></div>
+      <div class="card back"></div>
+    </div>
+
+    <!-- Shuffle animation deck -->
+    <div class="deck shuffle">
+      <div class="card back"></div>
+      <div class="card back"></div>
+      <div class="card back"></div>
+    </div>
+
+    <!-- Card being drawn animations -->
+    <div class="draw-animation card back" style="animation-delay: 1.75s;"></div>
+    <div class="draw-animation card back" style="animation-delay: 2.25s;"></div>
+    <div class="draw-animation card back" style="animation-delay: 2.75s;"></div>
+    <div class="draw-animation card back" style="animation-delay: 3.25s;"></div>
+
+    <!-- Burn Card -->
+    <div class="burn-card card back"></div>
+
+    <!-- Dealer Hand -->
+    <div class="dealer-hand">
+      <div class="card deal" style="--tx: 0; animation-delay: 2.8s; background-image: url('cards/AS.png');"></div>
+      <div class="card deal" style="--tx: 40px; animation-delay: 3.3s; background-image: url('cards/KD.png');"></div>
+    </div>
+
+    <!-- Player Hand -->
+    <div class="player-hand">
+      <div class="card deal" style="--tx: 0; animation-delay: 1.8s; background-image: url('cards/10H.png');"></div>
+      <div class="card deal" style="--tx: 40px; animation-delay: 2.3s; background-image: url('cards/7C.png');"></div>
+    </div>
+
+    <!-- Chips -->
+    <div class="chips">
+      <div class="chip red">$5</div>
+      <div class="chip blue">$25</div>
+      <div class="chip green">$100</div>
+    </div>
+  </div>
+</body>
+</html>
